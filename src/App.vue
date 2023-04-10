@@ -1,3 +1,6 @@
+
+import { RouterView } from 'vue-router';
+
 <template>
   <div id="app">
     <!-- 头部 -->
@@ -15,19 +18,20 @@
             <i class="el-icon-office-building"></i>
             <span>首页</span>
           </el-menu-item>
-          <el-submenu index="/2">
+          <el-submenu index="/3">
             <template slot="title">
               <i class="el-icon-goblet-full"></i>
-              <span>关于页面</span>
+              <span>会员管理</span>
             </template>
-            <el-menu-item index="about" style="background-color:#b5aa90;">关于详情</el-menu-item>
+            <el-menu-item index="addUser" style="background-color:#b5aa90;">会员添加</el-menu-item>
+            <el-menu-item index="userList" style="background-color:#b5aa90;">会员列表</el-menu-item>
           </el-submenu>
         </el-menu>
 
       </div>
       <!-- 主体 -->
       <div style="flex:1;background-color: #b5aa90;padding: 10px;">
-        <router-view/>
+        <RouterView></RouterView>
       </div>
     </div>
   </div>

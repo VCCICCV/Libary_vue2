@@ -8,11 +8,18 @@
         <el-button style="margin-left: 1%" type="warning" @click="reset"><i class="el-icon-refresh"></i>重置</el-button>
       </div>
       <el-table :data="tableData" stripe>
-        <el-table-column prop="name" lable="name"></el-table-column>
+        <el-table-column prop="id" lable="编号"></el-table-column>
+        <el-table-column prop="name" lable="姓名"></el-table-column>
         <el-table-column prop="age" lable="年龄"></el-table-column>
         <el-table-column prop="address" lable="地址"></el-table-column>
         <el-table-column prop="phone" lable="电话"></el-table-column>
         <el-table-column prop="sex" lable="性别"></el-table-column>
+
+        <el-tanle-column label="操作">
+          <template v-slot="scope">
+              <el-button type="primary">编辑</el-button>
+          </template>
+        </el-tanle-column>
       </el-table>
       <!-- 分页 -->
       <div style="margin-top: 2%">
@@ -52,7 +59,7 @@
     },
     created() {
       this.load()
-    //   console.log(load) 
+    //   console.log(load)
     },
     methods: {
       load() {

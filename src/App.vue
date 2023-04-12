@@ -13,14 +13,14 @@ import { RouterView } from 'vue-router';
       <!-- 导航 -->
       <div style="width:200px;min-height:calc(100vh-60px);overflow: hidden;margin-right: 2px;background-color:#e2c17c;">
 
-        <el-menu :default-active="this.$route.path" :default-openeds="['/']" router class="el-menu-demo" style="background-color:#b5aa90;">
-          <el-menu-item index="/2">
-            <i class="el-icon-office-building"></i>
+        <el-menu :default-active="$route.path.substring(1)" :default-openeds="['/']" router class="el-menu-demo" style="background-color:#b5aa90;">
+          <el-menu-item index="/">
+            <i class="el-icon-eleme"></i>
             <span>首页</span>
           </el-menu-item>
-          <el-submenu index="/3">
+          <el-submenu index="/">
             <template slot="title">
-              <i class="el-icon-goblet-full"></i>
+              <i class="el-icon-question"></i>
               <span>会员管理</span>
             </template>
             <el-menu-item index="addUser" style="background-color:#b5aa90;">会员添加</el-menu-item>

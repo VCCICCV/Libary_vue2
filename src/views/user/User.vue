@@ -24,7 +24,7 @@
     </el-table>
     <!-- 分页 -->
     <div style="margin-top: 2%">
-      <el-pagination background :page-size="params.pageSize" :current-page="params.pageNum"
+      <el-pagination background :page-size="parmas.pageSize" :current-page="parmas.pageNum"
         @current-change="handleCurrentChange" layout="prev, pager, next" :total="total">
       </el-pagination>
     </div>
@@ -34,7 +34,7 @@
 <script>
 // @ is an alias to /src
 
-import { request } from '@/utils/request';
+import  request  from '@/utils/request';
 // import request from 'axios'
 
 
@@ -47,7 +47,7 @@ export default {
     return {
       tableData: [],
       total: 0,
-      params: {
+      parmas: {
         pageNum: 1,
         pageSize: 10,
         name: '',
@@ -66,7 +66,7 @@ export default {
       //   this.tableData = res
       // })
       request.get('/user/page', {
-        params: this.params
+        parmas: this.parmas
       }).then(res => {
         if (res.code === '200') {
           this.tableData = res.data.list
@@ -75,7 +75,7 @@ export default {
       })
     },
     reset() {
-      this.params = {
+      this.parmas = {
         pageNum: 1,
         pageSize: 10,
         name: '',
@@ -85,7 +85,7 @@ export default {
     },
     handleCurrentChange() {
       // 点击分页
-      this.params.pageNum = pageNum
+      this.parmas.pageNum = pageNum
       this.load()
     },
     del(id) {

@@ -2,8 +2,8 @@
   <div>
     <!-- 搜索表单 -->
     <div style="margin-bottom: 1%">
-      <el-input style="width: 240px" placeholder="请输入" v-model="parmas.name"></el-input>
-      <el-input style="width: 240px;margin-left: 1%;" placeholder="请输入联系方式" v-model="parmas.phone"></el-input>
+      <el-input style="width: 240px" placeholder="请输入" v-model="params.name"></el-input>
+      <el-input style="width: 240px;margin-left: 1%;" placeholder="请输入联系方式" v-model="params.phone"></el-input>
       <el-button style="margin-left: 1%" type="primary" @click="load"><i class="el-icon-search"></i>搜索</el-button>
       <el-button style="margin-left: 1%" type="warning" @click="reset"><i class="el-icon-refresh"></i>重置</el-button>
     </div>
@@ -29,7 +29,7 @@
 
 <script>
 // @ is an alias to /src
-import { request } from '@/utils/request';
+import  request  from '@/utils/request';
 export default {
   name: "HomeView",
   components: {
@@ -49,7 +49,6 @@ export default {
   },
   created() {
     this.load()
-    console.log(load)
   },
   methods: {
     load() {

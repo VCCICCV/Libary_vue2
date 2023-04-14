@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from "@/router";
 // import Cookies from 'js-cookie'
 const request = axios.create({
-    baseURL: 'http://localhost:9090/api',//全局加上api前缀
+    baseURL: 'http://localhost:9090',//全局加上api前缀
     timeout: 5000
 })
 

@@ -31,7 +31,7 @@
 import request from '@/utils/request';
 
 export default {
-    name: 'EditUser',
+    name: 'EditAdmin',
     data() {
         return {
             form: {}

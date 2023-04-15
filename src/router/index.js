@@ -1,42 +1,58 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import HomeView from "../views/HomeView.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "home",
+    component: HomeView,
   },
   {
-    path: '/user',
-    name: 'User',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('@/views/user/User.vue')
+    path: "/user",
+    name: "User",
+    component: () => import("@/views/user/User.vue"),
+  },
+  // ========user========
+  {
+    path: "/addUser",
+    name: "AddUser",
+    component: () => import("@/views/user/AddUser.vue"),
   },
   {
-    path: '/addUser',
-    name: 'AddUser',
-    component: () => import('@/views/user/AddUser.vue')
+    path: "/editUser",
+    name: "EditUser",
+    component: () => import("@/views/user/EditUser.vue"),
+  },
+  // ========admin========
+  {
+    path: "/admin",
+    name: "Admin",
+    component: () => import("@/views/admin/List.vue"),
   },
   {
-    path: '/editUser',
-    name: 'EditUser',
-    component: () => import('@/views/user/EditUser.vue')
+    path: "/addAdmin",
+    name: "AddAdmin",
+    component: () => import("@/views/admin/Add.vue"),
   },
+  {
+    path: "/editAdmin",
+    name: "EditAdmin",
+    component: () => import("@/views/admin/Edit.vue"),
+  },
+
+  // ========404========
   {
     path: "/:catchAll(.*)", //正则
     name: "NotFound",
     component: () => import("@/views/404.vue"),
   },
-]
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

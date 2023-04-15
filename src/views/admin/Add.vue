@@ -29,7 +29,7 @@
 import request from '@/utils/request';
 
 export default {
-    name: 'AddUser',
+    name: 'AddAdmin',
     data() {
         const checkAge = (rule, value, callback) => {
             if (!value) {

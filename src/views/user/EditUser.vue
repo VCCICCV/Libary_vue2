@@ -25,27 +25,27 @@
     </div>
 </template>
 <script>
-import request from 'axios';
+import request from '@/utils/request';
 
 export default {
-    name: 'AddUser',
+    name: 'EditUser',
     data() {
         return{
             form:{}
         }
     },
     created(){
-        const id = this.route.query.id
+        const id = this.$route.query.id
         request.get('/user/'+id).then(res=>{
             this.form = res.data
         })
     },
     methods:{
         save(){
-            request.post('/user/save',this.form).then(res =>{
+            request.put('/user/update',this.form).then(res =>{
                 if(res.code=== '200'){
-                    this.$notify.success('新增成功')
-                    this.form = {}
+                    this.$notify.success('更新成功')
+                    this.$router.push("/user")
                 }else{
                     this.$notify.error(res.msg)
                 }

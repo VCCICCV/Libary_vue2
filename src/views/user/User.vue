@@ -15,12 +15,12 @@
       <el-table-column prop="phone" lable="电话"></el-table-column>
       <el-table-column prop="sex" lable="性别"></el-table-column>
 
-      <el-tanle-column label="操作">
+      <el-table-column label="操作">
         <template v-slot="scope">
           <!-- <el-button type="primary">编辑</el-button> -->
-          <el-button type="primary" @click="$route.push('/editUser?id=' + scope.rom.id)">编辑</el-button>
+          <el-button type="primary" @click="$router.push('/editUser?id=' + scope.row.id)">编辑</el-button>
         </template>
-      </el-tanle-column>
+      </el-table-column>
     </el-table>
     <!-- 分页 -->
     <div style="margin-top: 2%">
@@ -35,9 +35,6 @@
 // @ is an alias to /src
 
 import  request  from '@/utils/request';
-// import request from 'axios'
-
-
 export default {
   name: "User",
   components: {
@@ -57,7 +54,7 @@ export default {
   },
   created() {
     this.load()
-    //   console.log(load)
+
   },
   methods: {
     load() {
@@ -83,40 +80,40 @@ export default {
       }
       this.load()
     },
-    handleCurrentChange() {
+    handleCurrentChange(pageNum) {
       // 点击分页
       this.parmas.pageNum = pageNum
       this.load()
     },
-    del(id) {
-      request.delete("/user/delete/" + id).then(res => {
-        if (res.code === '200') {
-          this.$notify.success('删除成功')
-          this.load()
-        } else {
-          this.$notify.error(res.msg)
-        }
-      })
-    },
-    handleAccountAdd(row) {
-      this.form = JSON.parse(JSON.stringify(row))
-      this.dialogFormVisible = true
-    },
-    addAccount() {
-      this.$refs['ruleForm'].validate((valid) => {
-        if (valid) {
-          request.post('/user/account', this.form).then(res => {
-            if (res.code === '200') {
-              this.$notify.success('充值成功')
-              this.dialogFormVisible = false
-              this.load()
-            } else {
-              this.$notify.error(res.msg)
-            }
-          })
-        }
-      })
-    }
+    // del(id) {
+    //   request.delete("/user/delete/" + id).then(res => {
+    //     if (res.code === '200') {
+    //       this.$notify.success('删除成功')
+    //       this.load()
+    //     } else {
+    //       this.$notify.error(res.msg)
+    //     }
+    //   })
+    // },
+    // handleAccountAdd(row) {
+    //   this.form = JSON.parse(JSON.stringify(row))
+    //   this.dialogFormVisible = true
+    // },
+    // addAccount() {
+    //   this.$refs['ruleForm'].validate((valid) => {
+    //     if (valid) {
+    //       request.post('/user/account', this.form).then(res => {
+    //         if (res.code === '200') {
+    //           this.$notify.success('充值成功')
+    //           this.dialogFormVisible = false
+    //           this.load()
+    //         } else {
+    //           this.$notify.error(res.msg)
+    //         }
+    //       })
+    //     }
+    //   })
+    // }
   }
 };
 </script>

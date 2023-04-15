@@ -37,8 +37,9 @@ export default {
     methods:{
         save(){
             request.post('/user/save',this.form).then(res =>{
-                if(res.code=== '200'){
+                if(res.code === '200'){
                     this.$notify.success('新增成功')
+                    // 清空
                     this.form = {}
                 }else{
                     this.$notify.error(res.msg)

@@ -74,7 +74,7 @@ export default {
       }
       this.load()
     },
-    handleCurrentChange() {
+    handleCurrentChange(pageNum) {
       // 点击分页
       this.params.pageNum = pageNum
       this.load()

@@ -28,6 +28,11 @@ const routes = [
     name: 'EditUser',
     component: () => import('@/views/user/EditUser.vue')
   },
+  {
+    path: "/:catchAll(.*)", //正则
+    name: "NotFound",
+    component: () => import("@/views/404.vue"),
+  },
 ]
 
 const router = new VueRouter({

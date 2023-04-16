@@ -11,8 +11,8 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/user",
-    name: "User",
+    path: "/userList",
+    name: "UserList",
     component: () => import("@/views/user/User.vue"),
   },
   // ========user========
@@ -28,8 +28,8 @@ const routes = [
   },
   // ========admin========
   {
-    path: "/admin",
-    name: "Admin",
+    path: "/adminList",
+    name: "AdminList",
     component: () => import("@/views/admin/List.vue"),
   },
   {

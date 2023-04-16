@@ -2,7 +2,7 @@
   <div>
     <!-- 搜索表单 -->
     <div style="margin-bottom: 1%">
-      <el-input style="width: 240px" placeholder="请输入" v-model="params.username"></el-input>
+      <el-input style="width: 240px" placeholder="请输入用户名" v-model="params.username"></el-input>
       <el-input style="width: 240px;margin-left: 1%;" placeholder="请输入联系方式" v-model="params.phone"></el-input>
       <el-input style="width: 240px;margin-left: 1%;" placeholder="请输入邮箱" v-model="params.email"></el-input>
       <el-button style="margin-left: 1%" type="primary" @click="load"><i class="el-icon-search"></i>搜索</el-button>
@@ -79,7 +79,7 @@ export default {
         pageSize: 10,
         username: '',
         phone: '',
-        email
+        email:'',
       }
       this.load()
     },

@@ -1,6 +1,3 @@
-
-import { RouterView } from 'vue-router';
-
 <template>
   <div id="app">
     <!-- 头部 -->
@@ -11,35 +8,35 @@ import { RouterView } from 'vue-router';
     <!-- 侧边栏和主体 -->
     <div style="display: flex;">
       <!-- 导航 -->
-      <div style="width:200px;min-height:calc(100vh-60px);overflow: hidden;margin-right: 2px;background-color:#93b5cf;">
+      <div style="width:200px;min-height:calc(100vh-60px);overflow: hidden;margin-right: 2px;">
 
-        <el-menu :default-active="$route.path === '/' ? $route.path : $route.path.substring(1)" :default-openeds="['/']" router class="el-menu-demo" style="background-color:#baccd9;">
+        <el-menu :default-active="$route.path" router class="el-menu-demo">
           <el-menu-item index="/">
             <i class="el-icon-eleme"></i>
             <span>首页</span>
           </el-menu-item>
-          <el-submenu index="/">
+          <el-submenu index="user">
             <template slot="title">
               <i class="el-icon-question"></i>
               <span>会员管理</span>
             </template>
-            <el-menu-item index="addUser">会员添加</el-menu-item>
-            <el-menu-item index="user" style="background-color:##93b5cf;">会员列表</el-menu-item>
+            <el-menu-item index="/addUser">会员添加</el-menu-item>
+            <el-menu-item index="/userList">会员列表</el-menu-item>
           </el-submenu>
 
-          <el-submenu index="/">
+          <el-submenu index="admin">
             <template slot="title">
               <i class="el-icon-user"></i>
               <span>管理员管理</span>
             </template>
-            <el-menu-item index="addAdmin">管理员添加</el-menu-item>
-            <el-menu-item index="admin" style="background-color:##93b5cf;">管理员列表</el-menu-item>
+            <el-menu-item index="/addAdmin">管理员添加</el-menu-item>
+            <el-menu-item index="/adminList">管理员列表</el-menu-item>
           </el-submenu>
         </el-menu>
 
       </div>
       <!-- 主体 -->
-      <div style="flex:1;background-color: ##baccd9;padding: 10px;">
+      <div style="flex:1;padding: 10px;">
         <RouterView></RouterView>
       </div>
     </div>

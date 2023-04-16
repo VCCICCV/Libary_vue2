@@ -1,6 +1,7 @@
 <template>
-    <div style="width:80%">
-        <div style='margin-bottom:30px'>新增用户</div>
+    <div style="height: 900px;">
+
+        <div style="margin-bottom: 30px">新增用户</div>
         <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" label-width="100px">
             <el-form-item label="姓名" prop="name">
                 <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
@@ -19,71 +20,67 @@
                 <el-input v-model="form.address" placeholder="请输入地址"></el-input>
             </el-form-item>
         </el-form>
-        <div style="margin-top: 30px; text-align: right;">
+        <div style="margin-top: 30px; text-align: right">
             <el-button type="primary" @click="save">提交</el-button>
-
         </div>
     </div>
 </template>
 <script>
-import request from '@/utils/request';
+import request from "@/utils/request";
 
 export default {
-    name: 'AddUser',
+    name: "AddUser",
     data() {
         const checkAge = (rule, value, callback) => {
             if (!value) {
-                return callback(new Error('年龄不能为空'));
+                return callback(new Error("年龄不能为空"));
             }
             if (!/^[0-9]+$/.test(value)) {
-                callback(new Error('请输入数字'));
-            } if (parseInt(value) > 120 || parseInt(value) <= 0) {
-                callback(new Error('请输入合理的年龄'))
+                callback(new Error("请输入数字"));
             }
-            callback()
+            if (parseInt(value) > 120 || parseInt(value) <= 0) {
+                callback(new Error("请输入合理的年龄"));
+            }
+            callback();
         };
         const checkPhone = (rule, value, callback) => {
             if (!value) {
-                return callback(new Error('手机号不能为空'));
-            }else
-            if (!/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)) {
-                callback(new Error('请输入合法的手机号'));}
-            callback()
+                return callback(new Error("手机号不能为空"));
+            } else if (!/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)) {
+                callback(new Error("请输入合法的手机号"));
+            }
+            callback();
         };
 
         return {
-            form: { sex: '男' },
+            form: { sex: "男" },
             rules: {
-                name: [
-                    { required: true, message: "请输入姓名", trigger: 'blur' }
-                ],
-                age: [{ validator: checkAge, trigger: 'blur' }],
-                phone: [{ validator: checkPhone, trigger: 'blur' }]
-            }
-        }
+                name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+                age: [{ validator: checkAge, trigger: "blur" }],
+                phone: [{ validator: checkPhone, trigger: "blur" }],
+            },
+        };
     },
     methods: {
         save() {
-            this.$refs['ruleForm'].validate((valid) => {
+            this.$refs["ruleForm"].validate((valid) => {
                 if (valid) {
-                    request.post('/user/save', this.form).then(res => {
-                        if (res.code === '200') {
-                            this.$notify.success('新增成功')
+                    request.post("/user/save", this.form).then((res) => {
+                        if (res.code === "200") {
+                            this.$notify.success("新增成功");
                             // 清空
                             // this.form = {}
-                            this.$refs['ruleForm'].resetFields()
+                            this.$refs["ruleForm"].resetFields();
                         } else {
-                            this.$notify.error(res.msg)
+                            this.$notify.error(res.msg);
                         }
-
-                    })
+                    });
                 } else {
-                    console.log('error submit!!');
+                    console.log("error submit!!");
                     return false;
                 }
             });
-
-        }
-    }
-}
+        },
+    },
+};
 </script>

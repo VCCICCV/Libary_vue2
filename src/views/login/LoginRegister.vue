@@ -6,7 +6,7 @@
                     <img src="@/assets/img/shop1.png">
                 </div>
                 <div class="login-content">
-                    <form action="index.html" :model="admin">
+                    <form action="index.html">
                         <img src="@/assets/img/avatar.svg">
                         <h2 class="title">欢迎</h2>
                         <RouterView></RouterView>
@@ -30,9 +30,9 @@ export default {
     name: "LoginRegister",
     components: {},
     data(){
-        return{
-            admin:{}
-        }
+        // return{
+        //     admin:{}
+        // }
     }
 }
 </script>

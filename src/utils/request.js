@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from "@/router";
-// import Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 const request = axios.create({
     baseURL: 'http://localhost:9090',//全局加上api前缀
     timeout: 5000
@@ -11,6 +11,11 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     // 请求头
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
+    // const admin = Cookies.get('admin')
+    // if(!user){
+    //     rhis.$router.push('/LoginAndRegister')
+    // }
+
     return config
 }, error => {
     return Promise.reject(error)

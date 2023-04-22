@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<form action="" :model="admin">
+		<el-form action="" :model="admin" :rules="rules" ref="ruleForm">
 			<div class="input-div one">
 				<div class="i">
 					<i class="fas fa-user"></i>
 				</div>
 				<div class="div">
-					<input type="text" class="input" placeholder="邮箱" v-model="admin.email">
+					<input type="text" class="input" placeholder="用户名" v-model="admin.username">
 				</div>
 			</div>
 			<div class="input-div pass">
@@ -17,8 +17,8 @@
 					<input type="password" class="input" placeholder="密码" v-model="admin.password">
 				</div>
 			</div>
-			<input type="submit" class="btn" value="登录" @click="login"/>
-		</form>
+			<input type="submit" class="btn" value="登录" @click="login" />
+		</el-form>
 
 	</div>
 </template>
@@ -34,20 +34,44 @@ export default {
 			admin: {
 				email: '',
 				password: '',
-			}
+			},
+			rules: {
+				username: [
+					{ required: true, message: "请输入用户名", trigger: "blur" },
+					{ min: 3, max: 10, message: "长度在3-10g个字符之间", trigger: "blur" }
+				],
+				password: [
+					{ required: true, message: '请输入密码', trigger: 'blur' },
+					{ min: 3, max: 10, message: "长度在3-10g个字符之间", trigger: "blur" }
+				],
+			},
+
 		}
 	},
 	methods: {
 		login() {
-			request.post("/admin/login", this.admin).then(res => {
-				if (res.code == '200'){
-					this.$notify.success("登录成功")
-					// 到主页
-					this.router.push('/')
-				}else{
-					this.$notify.error(res.msg)
+			this.$refs["ruleForm"].validate((valid) => {
+				if (valid) {
+					request.post("/admin/login", this.admin).then(res => {
+						if (res.code == '200') {
+							this.$notify.success("登录成功")
+							// 到主页
+							this.router.push('/')
+							if(res.data != null){
+								Cookies.set('user',JSON.stringify(res.data))
+							}
+						} else {
+							this.$notify.error(res.msg)
+						}
+					})
+				} else {
+					console.log("error submit!!");
+					return false;
 				}
-			})
+			});
+
+
+
 		}
 	}
 

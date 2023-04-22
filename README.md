@@ -3,6 +3,7 @@
 ## Project setup
 ```
 npm install
+npm i js-cookie -S
 ```
 
 ### Compiles and hot-reloads for development

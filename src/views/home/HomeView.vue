@@ -1,6 +1,7 @@
 <template>
   <div>
-    <!-- 搜索表单 -->
+    <div>主页</div>
+    <!-- 搜索表单
     <div style="margin-bottom: 1%">
       <el-input style="width: 240px" placeholder="请输入" v-model="params.name"></el-input>
       <el-input style="width: 240px;margin-left: 1%;" placeholder="请输入联系方式" v-model="params.phone"></el-input>
@@ -13,9 +14,9 @@
       <el-table-column prop="address" lable="地址"></el-table-column>
       <el-table-column prop="phone" lable="电话"></el-table-column>
       <el-table-column prop="sex" lable="性别"></el-table-column>
-    </el-table>
+    </el-table> -->
     <!-- 分页 -->
-    <div style="margin-top: 2%">
+    <!-- <div style="margin-top: 2%">
       <el-pagination background
       :page-size="params.pageSize"
       :current-page="params.pageNum"
@@ -23,7 +24,7 @@
       layout="prev, pager, next"
       :total="total">
       </el-pagination>
-    </div>
+    </div> -->
   </div>
 </template>
 

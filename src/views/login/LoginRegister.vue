@@ -28,11 +28,11 @@
 <script lang="ts">
 export default {
     name: "LoginRegister",
-    components: {},
+    // components: {},
     data(){
-        // return{
-        //     admin:{}
-        // }
+        return{
+            // admin:{}
+        }
     }
 }
 </script>

@@ -28,6 +28,7 @@ request.interceptors.response.use(
             res = res ? JSON.parse(res) : res
         }
         if (res.code === '401') {
+            console.log("401")
             router.push('/login')
         }
         return res;

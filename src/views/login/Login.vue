@@ -6,7 +6,7 @@
 					<i class="fas fa-user"></i>
 				</div>
 				<div class="div">
-					<input type="text" class="input" placeholder="用户名" v-model="admin.username">
+					<el-input type="text" class="input" placeholder="用户名" v-model="admin.username"></el-input>
 				</div>
 			</div>
 			<div class="input-div pass">
@@ -14,7 +14,7 @@
 					<i class="fas fa-lock"></i>
 				</div>
 				<div class="div">
-					<input type="password" class="input" placeholder="密码" v-model="admin.password">
+					<el-input type="password" class="input" placeholder="密码" v-model="admin.password"></el-input>
 				</div>
 			</div>
 			<input type="submit" class="btn" value="登录" @click="login" />
@@ -53,10 +53,13 @@ export default {
 			this.$refs["ruleForm"].validate((valid) => {
 				if (valid) {
 					request.post("/admin/login", this.admin).then(res => {
+						console.log('200前')
 						if (res.code == '200') {
 							this.$notify.success("登录成功")
+							console.log('成功')
 							// 到主页
-							this.router.push('/')
+							// this.$router.push('/')
+							console.log('push')
 							if(res.data != null){
 								Cookies.set('user',JSON.stringify(res.data))
 							}
@@ -69,12 +72,11 @@ export default {
 					return false;
 				}
 			});
-
-
-
 		}
 	}
 
 };
 </script>
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -89,5 +89,10 @@ const router = new VueRouter({
   routes,
   mode:'history',
 });
-
+router.beforeEach((to,from,next) =>{
+  if(to.path == '/login') next()
+  const admin = Cookies.get('admin')
+  if(!admin && to.path !=='/login')return next('/login') //强制退回到登录页面
+  next()
+})
 export default router;

@@ -11,11 +11,10 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     // 请求头
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
-    // const admin = Cookies.get('admin')
-    // if(!user){
-    //     rhis.$router.push('/LoginAndRegister')
-    // }
-
+    const user = Cookies.get('admin')
+    if(!user){
+        rhis.$router.push('/LoginAndRegister')
+    }
     return config
 }, error => {
     return Promise.reject(error)

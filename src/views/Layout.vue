@@ -7,7 +7,7 @@
                 <span style="margin-left: 20px;font-size: 24px;">图书管理系统</span>
             </div>
             <div style="flex:1;text-align:right; padding-right:20px;">
-                <el-dropdown>
+                <el-dropdown size="medium">
                     <span class="el-dropdown-link" style="cursor:pointer">
                         {{ admin.username }}<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
@@ -49,7 +49,7 @@
 
             </div>
             <!-- 主体 -->
-            <div style="flex:1;padding: 10px;">
+            <div style="flex:1; width: 0;padding: 10px;">
                 <RouterView></RouterView>
             </div>
         </div>
@@ -61,7 +61,7 @@ export default{
     name:"Layout",
     data(){
         return{
-            admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},
+            admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {}
         }
     },
     methods:{
@@ -73,4 +73,5 @@ export default{
     },
 }
 </script>
-<style></style>
+<style>
+</style>

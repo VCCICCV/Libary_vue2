@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Layout from "@/views/Layout.vue"
-import LoginRegister from "@/views/login/LoginRegister"
+import Layout from "@/views/Layout.vue";
+import LoginRegister from "@/views/login/LoginRegister";
+import Cookies from 'js-cookie';
 Vue.use(VueRouter);
 
 const routes = [

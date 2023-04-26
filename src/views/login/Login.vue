@@ -1,5 +1,5 @@
 <template>
-	<div style="height: 100vh; overflow: hidden; position: relative">
+	<div>
 		<!-- <el-card class="cover" v-if="loginAdmin.id">
 		<slide-verify :l="42"
 					  :r="10"
@@ -16,8 +16,8 @@
 		></slide-verify>
 	  </el-card> -->
 
-		<div style="width: 500px; height: 400px; background-color: white; border-radius: 10px;
-		  margin: 150px auto; padding:50px">
+		<div style="width: 80%px; height: 50%; background-color: white; border-radius: 10px;
+		  margin:auto; padding:50px">
 			<div style="margin: 30px; text-align: center; font-size: 30px; font-weight: bold; color: dodgerblue">登 录</div>
 			<el-form :model="admin" :rules="rules" ref="loginForm">
 				<el-form-item prop="username">
@@ -26,10 +26,10 @@
 				</el-form-item>
 				<el-form-item prop="password">
 					<el-input placeholder="请输入密码" show-password prefix-icon="el-icon-lock" size="medium"
-						v-model="admin.password"></el-input>
+						v-model="admin.password" @keypress.enter.native="login"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button style="width: 100%" size="medium" type="primary" @click="login">登录</el-button>
+					<el-button style="width: 100%" size="medium" type="primary" @click="login" class="btn">登录</el-button>
 				</el-form-item>
 			</el-form>
 		</div>
@@ -92,13 +92,25 @@ export default {
 </script>
 
 <style>
-.cover {
-	width: fit-content;
-	background-color: white;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 1000;
+.btn {
+    display: block;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    outline: none;
+    border: none;
+    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+    background-size: 200%;
+    font-size: 1.2rem;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.btn:hover {
+    background-position: right;
 }
 </style>

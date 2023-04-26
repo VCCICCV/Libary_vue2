@@ -85,15 +85,17 @@ const routes = [
     component: () => import("@/views/404.vue"),
   },
 ];
-
 const router = new VueRouter({
   routes,
   mode:'history',
 });
 router.beforeEach((to,from,next) =>{
-  if(to.path == '/login') next()
-  const admin = Cookies.get('admin')
-  if(!admin && to.path !=='/login')return next('/login') //强制退回到登录页面
-  next()
+  if (to.path === '/login' || to.path === '/forgetThePassword') { // 如果访问的是 login 或 forgetThePassword 页面，则直接放行
+    next()
+  } else {
+    const admin = Cookies.get('admin')
+    if (!admin) return next('/login') // 强制退回到登录页面
+    next()
+  }
 })
 export default router;

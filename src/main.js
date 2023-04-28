@@ -5,9 +5,10 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/reset.css'
 import Cookies from 'js-cookie'
-// Vue.use(request)
-Vue.config.productionTip = false
+import SlideVerify from 'vue-monoplasty-slide-verify';
 
+Vue.config.productionTip = false
+Vue.use(SlideVerify);
 Vue.use(Cookies)
 Vue.use(ElementUI,{size:'small'});// medium small mini
 new Vue({

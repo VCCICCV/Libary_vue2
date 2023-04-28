@@ -1,21 +1,11 @@
 <template>
 	<div>
-		<!-- <el-card class="cover" v-if="loginAdmin.id">
-		<slide-verify :l="42"
-					  :r="10"
-					  :w="310"
-					  :h="155"
-					  :accuracy="5"
-					  :imgs="['https://cdn.pixabay.com/photo/2022/11/09/12/23/lotus-7580478_960_720.jpg',
-					  'https://cdn.pixabay.com/photo/2017/08/29/12/07/adult-2693054_960_720.jpg',
-					  'https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_960_720.jpg']"
-					  slider-text="向右滑动"
-					  @success="onSuccess"
-					  @fail="onFail"
-					  @refresh="onRefresh"
-		></slide-verify>
-	  </el-card> -->
-
+		<el-card class="cover" v-if="loginAdmin.id">
+			<slide-verify :l="42" :r="10" :w="310" :h="155" :accuracy="2" :imgs="['https://cdn.pixabay.com/photo/2022/11/09/12/23/lotus-7580478_960_720.jpg',
+					'https://cdn.pixabay.com/photo/2017/08/29/12/07/adult-2693054_960_720.jpg',
+					'https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_960_720.jpg']" slider-text="向右滑动"
+				@success="onSuccess" @fail="onFail" @refresh="onRefresh"></slide-verify>
+		</el-card>
 		<div style="width: 80%px; height: 50%; background-color: white; border-radius: 10px;
 		  margin:auto; padding:50px">
 			<div style="margin: 30px; text-align: center; font-size: 30px; font-weight: bold; color: dodgerblue">登 录</div>
@@ -64,11 +54,11 @@ export default {
 				if (valid) {
 					request.post('/admin/login', this.admin).then(res => {
 						if (res.code === '200') {
+							// 请求成功后赋值,滑块出现
 							this.loginAdmin = res.data
-
-							this.$notify.success("登录成功")
-							Cookies.set('admin', JSON.stringify(this.loginAdmin))
-							this.$router.push('/')
+							this.$notify.success("请验证")
+							// Cookies.set('admin', JSON.stringify(this.loginAdmin))
+							// this.$router.push('/')
 						} else {
 							this.$notify.error(res.msg)
 						}
@@ -76,41 +66,54 @@ export default {
 				}
 			})
 		},
-		// onSuccess() { // 滑块验证通过之后触发的
-		// 	Cookies.set('admin', JSON.stringify(this.loginAdmin))
-		// 	this.$notify.success("登录成功")
-		// 	this.$router.push('/')
-		// },
-		// onFail() {
-		// 	console.log('onFail')
-		// },
-		// onRefresh() {
-		// 	console.log('refresh')
-		// }
+		// 滑块验证通过之后触发的
+		onSuccess() {
+			Cookies.set('admin', JSON.stringify(this.loginAdmin))
+			this.$notify.success("登录成功")
+			this.$router.push('/')
+		},
+		onFail() {
+			this.$notify.error("验证失败")
+			console.log('onFail')
+		},
+		onRefresh() {
+			console.log('refresh')
+		}
 	}
 }
 </script>
 
 <style>
 .btn {
-    display: block;
-    width: 100%;
-    height: 50px;
-    border-radius: 25px;
-    outline: none;
-    border: none;
-    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
-    background-size: 200%;
-    font-size: 1.2rem;
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    text-transform: uppercase;
-    margin: 1rem 0;
-    cursor: pointer;
-    transition: .5s;
+	display: block;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+	background-size: 200%;
+	font-size: 1.2rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	transition: .5s;
 }
 
 .btn:hover {
-    background-position: right;
+	background-position: right;
+}
+
+.cover {
+	width: fit-content;
+	background-color: white;
+	position: absolute;
+	/* 居中置顶 */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
 }
 </style>

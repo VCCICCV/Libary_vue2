@@ -8,6 +8,7 @@
       <el-button style="margin-left: 1%" type="primary" @click="load"><i class="el-icon-search"></i>搜索</el-button>
       <el-button style="margin-left: 1%" type="warning" @click="reset"><i class="el-icon-refresh"></i>重置</el-button>
     </div>
+    <!-- 列表 -->
     <el-table :data="tableData" stripe>
       <el-table-column prop="id" label="编号" width="50"></el-table-column>
       <el-table-column prop="username" label="用户名" width="90"></el-table-column>
@@ -15,6 +16,7 @@
       <el-table-column prop="email" label="邮箱" width="210"></el-table-column>
       <el-table-column prop="createtime" label="创建时间" width="100"></el-table-column>
       <el-table-column prop="updatetime" label="更新时间" width="100"></el-table-column>
+      <!-- 状态 -->
       <el-table-column label="状态" width="100">
         <template v-slot="scope">
           <el-switch v-model="scope.row.status" @change="changeStatus(scope.row)" active-color="#13ce66"
@@ -134,7 +136,7 @@ export default {
       request.put('/admin/update', row).then(res => {
         if (res.code === '200') {
           this.$notify.success('操作成功')
-          this.load()
+          this.load() 
         } else {
           this.$notify.error(res.msg)
         }

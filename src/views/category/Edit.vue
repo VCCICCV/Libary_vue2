@@ -1,20 +1,16 @@
 <template>
     <div style="width:80%;">
-        <div style='margin-bottom:30px'>编辑管理员</div>
-        <el-form :inline="true" :model="form" label-width="100px">
-            <el-form-item label="用户名" prop="username">
-                <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+        <div style='margin-bottom:30px'>编辑分类</div>
+        <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" label-width="100px">
+            <el-form-item label="名称" prop="name">
+                <el-input v-model="form.name" placeholder="请输入名称"></el-input>
             </el-form-item>
-            <el-form-item label="联系方式" prop="phone">
-                <el-input v-model="form.phone" placeholder="请输入联系方式"></el-input>
-            </el-form-item>
-            <el-form-item label="邮箱" prop="eamil">
-                <el-input v-model="form.email" placeholder="请输入邮箱"></el-input>
+            <el-form-item label="备注" prop="remark">
+                <el-input v-model="form.remark" placeholder="请输入备注"></el-input>
             </el-form-item>
         </el-form>
         <div style="margin-top: 30px; text-align: right;">
             <el-button type="primary" @click="save">提交</el-button>
-
         </div>
     </div>
 </template>
@@ -25,21 +21,26 @@ export default {
     name: 'EditCategory',
     data() {
         return {
-            form: {}
+            form: {},
+            rules: {
+                name: [
+                    { required: true, message: "请输入分类名称", trigger: "blur" },
+                ],
+            },
         }
     },
     created() {
         const id = this.$route.query.id
-        request.get('/admin/' + id).then(res => {
+        request.get('/category/' + id).then(res => {
             this.form = res.data
         })
     },
     methods: {
         save() {
-            request.put('/admin/update', this.form).then(res => {
+            request.put('/category/update', this.form).then(res => {
                 if (res.code === '200') {
                     this.$notify.success('更新成功')
-                    this.$router.push("/adminList")
+                    this.$router.push("/categoryList")
                 } else {
                     this.$notify.error(res.msg)
                 }

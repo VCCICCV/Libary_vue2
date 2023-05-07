@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/views/Layout.vue";
 import LoginRegister from "@/views/login/LoginRegister";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 Vue.use(VueRouter);
 
 const routes = [
@@ -11,7 +11,7 @@ const routes = [
     path: "/loginRegister",
     name: "LoginRegister",
     redirect: "login", // 默认显示登录
-    component:LoginRegister,
+    component: LoginRegister,
     children: [
       {
         path: "/login",
@@ -35,19 +35,19 @@ const routes = [
     path: "/",
     name: "Layout",
     component: Layout,
-    redirect:'home',
+    redirect: "home",
     children: [
       {
-        path:"home",
-        name:"HomeView",
-        component: () => import('@/views/home/HomeView.vue')
+        path: "home",
+        name: "HomeView",
+        component: () => import("@/views/home/HomeView.vue"),
       },
       {
         path: "userList",
         name: "UserList",
         component: () => import("@/views/user/User.vue"),
       },
-      // ========user========
+      // ========User========
       {
         path: "addUser",
         name: "AddUser",
@@ -58,7 +58,7 @@ const routes = [
         name: "EditUser",
         component: () => import("@/views/user/EditUser.vue"),
       },
-      // ========admin========
+      // ========Admin========
       {
         path: "adminList",
         name: "AdminList",
@@ -74,9 +74,24 @@ const routes = [
         name: "EditAdmin",
         component: () => import("@/views/admin/Edit.vue"),
       },
-    ]
+      // ========Category========
+      {
+        path: "categoryList",
+        name: "CategoryList",
+        component: () => import("@/views/category/List.vue"),
+      },
+      {
+        path: "addCategory",
+        name: "AddCategory",
+        component: () => import("@/views/category/Add.vue"),
+      },
+      {
+        path: "/editCategory",
+        name: "EditCategory",
+        component: () => import("@/views/category/Edit.vue"),
+      },
+    ],
   },
-
 
   // ========404========
   {
@@ -87,15 +102,16 @@ const routes = [
 ];
 const router = new VueRouter({
   routes,
-  mode:'history',
+  mode: "history",
 });
-router.beforeEach((to,from,next) =>{
-  if (to.path === '/login' || to.path === '/forgetThePassword') { // 如果访问的是 login 或 forgetThePassword 页面，则直接放行
-    next()
+router.beforeEach((to, from, next) => {
+  if (to.path === "/login" || to.path === "/forgetThePassword") {
+    // 如果访问的是 login 或 forgetThePassword 页面，则直接放行
+    next();
   } else {
-    const admin = Cookies.get('admin')
-    if (!admin) return next('/login') // 强制退回到登录页面
-    next()
+    const admin = Cookies.get("admin");
+    if (!admin) return next("/login"); // 强制退回到登录页面
+    next();
   }
-})
+});
 export default router;

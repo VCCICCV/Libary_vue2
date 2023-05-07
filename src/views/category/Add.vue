@@ -1,15 +1,12 @@
 <template>
     <div style="width: 80%">
-        <div style="margin-bottom: 30px">新增管理员</div>
+        <div style="margin-bottom: 30px">新增分类</div>
         <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" label-width="100px">
-            <el-form-item label="用户名" prop="username">
-                <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+            <el-form-item label="名称" prop="name">
+                <el-input v-model="form.name" placeholder="请输入名称"></el-input>
             </el-form-item>
-            <el-form-item label="联系方式" prop="phone">
-                <el-input v-model="form.phone" placeholder="请输入联系方式"></el-input>
-            </el-form-item>
-            <el-form-item label="邮箱" prop="email">
-                <el-input v-model="form.email" placeholder="请输入邮箱"></el-input>
+            <el-form-item label="备注" prop="remark">
+                <el-input v-model="form.remark" placeholder="请输入备注"></el-input>
             </el-form-item>
         </el-form>
         <div style="margin-top: 30px; text-align: right">
@@ -23,26 +20,12 @@ import request from "@/utils/request";
 export default {
     name: "AddCategory",
     data() {
-        const checkPhone = (rule, value, callback) => {
-            if (!value) {
-                return callback(new Error("手机号不能为空"));
-            } else if (!/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)) {
-                callback(new Error("请输入合法的手机号"));
-            }
-            callback();
-        };
-
         return {
             form: {},
             rules: {
-                username: [
-                    { required: true, message: "请输入用户名", trigger: "blur" },
-                    { min:3,max:10 ,message: "长度在3-10g个字符之间",trigger:"blur"}
+                name: [
+                    { required: true, message: "请输入分类名称", trigger: "blur" },
                 ],
-                phone: [
-                    { validator: checkPhone, trigger: "blur" }
-                ],
-                // email:[{}],
             },
         };
     },
@@ -50,7 +33,7 @@ export default {
         save() {
             this.$refs["ruleForm"].validate((valid) => {
                 if (valid) {
-                    request.post("/admin/save", this.form).then((res) => {
+                    request.post("/category/save", this.form).then((res) => {
                         if (res.code === "200") {
                             this.$notify.success("新增成功");
                             // 清空

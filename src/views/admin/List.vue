@@ -10,28 +10,28 @@
     </div>
     <!-- 列表 -->
     <el-table :data="tableData" stripe>
-      <el-table-column prop="id" label="编号" width="50"></el-table-column>
-      <el-table-column prop="username" label="用户名" width="90"></el-table-column>
-      <el-table-column prop="phone" label="联系方式" width="110"></el-table-column>
-      <el-table-column prop="email" label="邮箱" width="210"></el-table-column>
-      <el-table-column prop="createtime" label="创建时间" width="100"></el-table-column>
-      <el-table-column prop="updatetime" label="更新时间" width="100"></el-table-column>
+      <el-table-column prop="id" label="编号" width="80"></el-table-column>
+      <el-table-column prop="username" label="用户名"></el-table-column>
+      <el-table-column prop="phone" label="联系方式"></el-table-column>
+      <el-table-column prop="email" label="邮箱"></el-table-column>
+      <el-table-column prop="createtime" label="创建时间"></el-table-column>
+      <el-table-column prop="updatetime" label="更新时间"></el-table-column>
       <!-- 状态 -->
-      <el-table-column label="状态" width="100">
+      <el-table-column label="状态" width="50">
         <template v-slot="scope">
           <el-switch v-model="scope.row.status" @change="changeStatus(scope.row)" active-color="#13ce66"
             inactive-color="#ff4949">
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="操作" style="width: 300px;">
+      <el-table-column label="操作" width="230">
         <template v-slot="scope">
           <el-button type="primary" @click="$router.push('/editAdmin?id=' + scope.row.id)" size="mini">编辑</el-button>
           <el-popconfirm title="确定删除？" @confirm="del(scope.row.id)">
-            <el-button type="danger" slot="reference" size="mini">删除</el-button>
+            <el-button type="danger" slot="reference">删除</el-button>
           </el-popconfirm>
-          <el-button style="margin-left: 5px" type="warning" @click="handleChangePass(scope.row)">修改密码</el-button>
-
+          <el-button style="margin-left: 5px" type="warning" @click="handleChangePass(scope.row)"
+            size="mini">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -81,8 +81,8 @@ export default {
       },
       rules: {
         newPass: [
-          {required: true, message: '请输入新密码', trigger: 'blur'},
-          {min: 3, max: 10, message: '长度在3-10个字符', trigger: 'blur'}
+          { required: true, message: '请输入新密码', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在3-10个字符', trigger: 'blur' }
         ]
       }
     };
@@ -136,7 +136,7 @@ export default {
       request.put('/admin/update', row).then(res => {
         if (res.code === '200') {
           this.$notify.success('操作成功')
-          this.load() 
+          this.load()
         } else {
           this.$notify.error(res.msg)
         }

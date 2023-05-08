@@ -8,15 +8,15 @@
     </div>
     <!-- 列表 -->
     <el-table :data="tableData" stripe row-key="id" default-expand-all>
-      <el-table-column prop="id" label="编号" width="100"></el-table-column>
-      <el-table-column prop="name" label="名称" width="90"></el-table-column>
-      <el-table-column prop="remark" label="备注" width="150"></el-table-column>
-      <el-table-column prop="createtime" label="创建时间" width="100"></el-table-column>
-      <el-table-column prop="updatetime" label="更新时间" width="100"></el-table-column>
+      <el-table-column prop="id" label="编号" width="80"></el-table-column>
+      <el-table-column prop="name" label="名称"></el-table-column>
+      <el-table-column prop="remark" label="备注"></el-table-column>
+      <el-table-column prop="createtime" label="创建时间"></el-table-column>
+      <el-table-column prop="updatetime" label="更新时间"></el-table-column>
       <!-- 状态 -->
-      <el-table-column label="操作" style="width: 300px;">
+      <el-table-column label="操作" width="280">
         <template v-slot="scope">
-          <el-button type="success" @click="handleAdd(scope.row)" size="mini">添加二级分类</el-button>
+          <el-button type="success" @click="handleAdd(scope.row)" size="mini" v-if="!scope.row.pid">添加二级分类</el-button>
           <el-button type="primary" @click="$router.push('/editCategory?id=' + scope.row.id)" size="mini">编辑</el-button>
           <el-popconfirm title="确定删除？" @confirm="del(scope.row.id)">
             <el-button type="danger" slot="reference" size="mini">删除</el-button>
@@ -64,7 +64,7 @@ export default {
       total: 0,
       dialogFormVisible: false,
       form: {},
-      pid:null,
+      pid: null,
       params: {
         pageNum: 1,
         pageSize: 10,
@@ -95,9 +95,7 @@ export default {
       this.params = {
         pageNum: 1,
         pageSize: 10,
-        username: '',
-        phone: '',
-        email: '',
+        name:"",
       }
       this.load()
     },
@@ -116,7 +114,7 @@ export default {
         }
       })
     },
-    handleAdd(row){
+    handleAdd(row) {
       // 将当前行的id作为二级分类的id
       this.pid = row.id
       // 出现弹窗
@@ -125,12 +123,16 @@ export default {
     save() {
       this.$refs["ruleForm"].validate((valid) => {
         if (valid) {
+          // 给二级分类赋值 pid
+          this.form.pid = this.pid
           request.post("/category/save", this.form).then((res) => {
             if (res.code === "200") {
               this.$notify.success("新增二级分类成功");
               // 清空
-              // this.form = {}
-              this.$refs["ruleForm"].resetFields();p
+              this.$refs["ruleForm"].resetFields();
+              // 关闭弹窗
+              this.dialogFormVisible = false
+              this.load()
             } else {
               this.$notify.error(res.msg);
             }

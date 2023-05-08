@@ -10,7 +10,7 @@ import SlideVerify from 'vue-monoplasty-slide-verify';
 Vue.config.productionTip = false
 Vue.use(SlideVerify);
 Vue.use(Cookies)
-Vue.use(ElementUI,{size:'small'});// medium small mini
+Vue.use(ElementUI,{size:'mini'});// medium small mini
 new Vue({
   router,
   render: h => h(App)

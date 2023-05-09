@@ -2,29 +2,21 @@
   <div>
     <!-- 搜索表单 -->
     <div style="margin-bottom: 1%">
-      <el-input style="width: 240px" placeholder="请输入图书名称" v-model="params.name"></el-input>
-      <el-input style="width: 240px" placeholder="请输入图书编码" v-model="params.bookNo"></el-input>
+      <el-input style="width: 240px" placeholder="请输入分类名" v-model="params.name"></el-input>
       <el-button style="margin-left: 1%" type="primary" @click="load"><i class="el-icon-search"></i>搜索</el-button>
       <el-button style="margin-left: 1%" type="warning" @click="reset"><i class="el-icon-refresh"></i>重置</el-button>
     </div>
     <!-- 列表 -->
-    <!-- 表格prop写驼峰 -->
     <el-table :data="tableData" stripe row-key="id" default-expand-all>
       <el-table-column prop="id" label="编号" width="80"></el-table-column>
-      <el-table-column prop="name" label="图书名称"></el-table-column>
-      <el-table-column prop="description" label="描述"></el-table-column>
-      <el-table-column prop="publishDate" label="出版日期"></el-table-column>
-      <el-table-column prop="author" label="作者"></el-table-column>
-      <el-table-column prop="publisher" label="出版社"></el-table-column>
-      <el-table-column prop="category" label="分类"></el-table-column>
-      <el-table-column prop="bookNo" label="标准码"></el-table-column>
-      <el-table-column prop="cover" label="封面"></el-table-column>
+      <el-table-column prop="name" label="名称"></el-table-column>
+      <el-table-column prop="remark" label="备注"></el-table-column>
       <el-table-column prop="createtime" label="创建时间"></el-table-column>
       <el-table-column prop="updatetime" label="更新时间"></el-table-column>
       <!-- 状态 -->
       <el-table-column label="操作" width="280">
         <template v-slot="scope">
-          <el-button type="success" @click="handleAdd(scope.row)" size="mini" v-if="!scope.row.pid">添加二级图书</el-button>
+          <el-button type="success" @click="handleAdd(scope.row)" size="mini" v-if="!scope.row.pid">添加二级分类</el-button>
           <el-button type="primary" @click="$router.push('/editCategory?id=' + scope.row.id)" size="mini">编辑</el-button>
           <el-popconfirm title="确定删除？" @confirm="del(scope.row.id)">
             <el-button type="danger" slot="reference" size="mini">删除</el-button>
@@ -39,12 +31,12 @@
       </el-pagination>
     </div>
     <!-- 弹窗  -->
-    <el-dialog title="添加二级图书" :visible.sync="dialogFormVisible" width="30%">
+    <el-dialog title="添加二级分类" :visible.sync="dialogFormVisible" width="30%">
       <el-form :model="form" label-width="100px" ref="ruleForm" :rules="rules">
-        <el-form-item label="图书名" prop="name">
+        <el-form-item label="分类名" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="图书备注" prop="remark">
+        <el-form-item label="分类备注" prop="remark">
           <el-input v-model="form.remark" autocomplete="off" @keypress.enter.native="save"></el-input>
         </el-form-item>
       </el-form>
@@ -80,7 +72,7 @@ export default {
       },
       rules: {
         newPass: [
-          { required: true, message: '请输入图书名称', trigger: 'blur' },
+          { required: true, message: '请输入分类名称', trigger: 'blur' },
         ]
       }
     };
@@ -123,7 +115,7 @@ export default {
       })
     },
     handleAdd(row) {
-      // 将当前行的id作为二级图书的id
+      // 将当前行的id作为二级分类的id
       this.pid = row.id
       // 出现弹窗
       this.dialogFormVisible = true
@@ -131,11 +123,11 @@ export default {
     save() {
       this.$refs["ruleForm"].validate((valid) => {
         if (valid) {
-          // 给二级图书赋值 pid
+          // 给二级分类赋值 pid
           this.form.pid = this.pid
           request.post("/category/save", this.form).then((res) => {
             if (res.code === "200") {
-              this.$notify.success("新增二级图书成功");
+              this.$notify.success("新增二级分类成功");
               // 清空
               this.$refs["ruleForm"].resetFields();
               // 关闭弹窗

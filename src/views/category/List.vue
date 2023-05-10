@@ -2,8 +2,7 @@
   <div>
     <!-- 搜索表单 -->
     <div style="margin-bottom: 1%">
-      <el-input style="width: 240px" placeholder="请输入图书名称" v-model="params.name"></el-input>
-      <el-input style="width: 240px" placeholder="请输入图书编码" v-model="params.bookNo"></el-input>
+      <el-input style="width: 240px" placeholder="请输入分类名" v-model="params.name"></el-input>
       <el-button style="margin-left: 1%" type="primary" @click="load"><i class="el-icon-search"></i>搜索</el-button>
       <el-button style="margin-left: 1%" type="warning" @click="reset"><i class="el-icon-refresh"></i>重置</el-button>
     </div>
@@ -11,14 +10,8 @@
     <!-- 表格prop写驼峰 -->
     <el-table :data="tableData" stripe row-key="id" default-expand-all>
       <el-table-column prop="id" label="编号" width="80"></el-table-column>
-      <el-table-column prop="name" label="图书名称"></el-table-column>
-      <el-table-column prop="description" label="描述"></el-table-column>
-      <el-table-column prop="publishDate" label="出版日期"></el-table-column>
-      <el-table-column prop="author" label="作者"></el-table-column>
-      <el-table-column prop="publisher" label="出版社"></el-table-column>
-      <el-table-column prop="category" label="分类"></el-table-column>
-      <el-table-column prop="bookNo" label="标准码"></el-table-column>
-      <el-table-column prop="cover" label="封面"></el-table-column>
+      <el-table-column prop="name" label="名称"></el-table-column>
+      <el-table-column prop="remark" label="备注"></el-table-column>
       <el-table-column prop="createtime" label="创建时间"></el-table-column>
       <el-table-column prop="updatetime" label="更新时间"></el-table-column>
       <!-- 状态 -->
@@ -67,7 +60,7 @@ export default {
   },
   data() {
     return {
-      category: Cookies.get('category') ? JSON.parse(Cookies.get('category')) : {},
+      admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},
       tableData: [],
       total: 0,
       dialogFormVisible: false,

@@ -5,11 +5,12 @@
             <el-form-item label="名称" prop="name">
                 <el-input v-model="form.name" placeholder="请输入名称"></el-input>
             </el-form-item>
-            <el-form-item label="描述" prop="description" >
-                <el-input type="textarea"  v-model="form.description" placeholder="请输入描述" style="width:400px;"></el-input>
+            <el-form-item label="描述" prop="description">
+                <el-input type="textarea" v-model="form.description" placeholder="请输入描述" style="width:400px;"></el-input>
             </el-form-item>
             <el-form-item label="出版日期" prop="publish_date">
-                <el-date-picker style="width: 85%;" v-model="form.publishDate" type="date" value-format="yyyy-MM-dd" placeholder="请选择出版日期">
+                <el-date-picker style="width: 85%;" v-model="form.publishDate" type="date" value-format="yyyy-MM-dd"
+                    placeholder="请选择出版日期">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="作者" prop="author">
@@ -19,7 +20,7 @@
                 <el-input v-model="form.publisher" placeholder="请输入出版社"></el-input>
             </el-form-item>
             <el-form-item label="分类" prop="category">
-                <el-input v-model="form.category" placeholder="请选择分类"></el-input>
+                <el-cascader v-model="form.category" :options="categorys" @change="handleChange"></el-cascader>
             </el-form-item>
             <el-form-item label="标准码" prop="bookNo">
                 <el-input v-model="form.bookNo" placeholder="标准码"></el-input>
@@ -41,6 +42,7 @@ export default {
     data() {
         return {
             form: {},
+            categorys:[],
             rules: {
                 name: [
                     { required: true, message: "请输入分类名称", trigger: "blur" },

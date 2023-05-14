@@ -39,7 +39,7 @@
 import request from '@/utils/request';
 import Cookies from 'js-cookie';
 export default {
-    name: 'EditBook',
+    name: 'EditBorrow',
     data() {
         return {
             admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},

@@ -9,7 +9,7 @@
       <el-button style="margin-left: 1%" type="warning" @click="reset"><i class="el-icon-refresh"></i>重置</el-button>
     </div>
     <!-- 列表 -->
-    <el-table :data="tableData" stripe>
+    <el-table :data="tableData" stripe style="height:500px; overflow-y: scroll;">
       <el-table-column prop="id" label="编号" width="80"></el-table-column>
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="phone" label="联系方式"></el-table-column>

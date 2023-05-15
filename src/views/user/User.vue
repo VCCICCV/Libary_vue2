@@ -7,7 +7,7 @@
       <el-button style="margin-left: 1%" type="primary" @click="load"><i class="el-icon-search"></i>搜索</el-button>
       <el-button style="margin-left: 1%" type="warning" @click="reset"><i class="el-icon-refresh"></i>重置</el-button>
     </div>
-    <el-table :data="tableData" stripe>
+    <el-table :data="tableData" stripe style="height:500px; overflow-y: scroll;">
       <el-table-column prop="id" label="编号" width="80"></el-table-column>
       <el-table-column prop="username" label="会员号"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>

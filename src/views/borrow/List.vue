@@ -9,7 +9,7 @@
     </div>
     <!-- 列表 -->
     <!-- 表格prop写驼峰 -->
-    <el-table :data="tableData" stripe row-key="id" default-expand-all>
+    <el-table :data="tableData" stripe row-key="id" default-expand-all style="height:550px; overflow-y: scroll;">
       <el-table-column prop="id" label="编号" width="80"></el-table-column>
       <el-table-column prop="bookName" label="图书名称"></el-table-column>
       <el-table-column prop="bookNo" label="标准码" width="250"></el-table-column>

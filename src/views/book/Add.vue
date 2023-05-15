@@ -26,6 +26,12 @@
             <el-form-item label="标准码" prop="bookNo">
                 <el-input v-model="form.bookNo" placeholder="标准码"></el-input>
             </el-form-item>
+            <el-form-item label="借书积分" prop="score">
+                <el-input-number v-model="form.score" :min="10" :max="30" :step="2">所需积分</el-input-number>
+            </el-form-item>
+            <el-form-item label="数量" prop="nums">
+                <el-input v-model="form.nums" placeholder="请输入数量"></el-input>
+            </el-form-item>
             <el-form-item label="封面" prop="cover">
                 <el-input v-model="form.cover" placeholder="请选择封面"></el-input>
             </el-form-item>
@@ -76,11 +82,11 @@ export default {
     },
     methods: {
         handleCoverSuccess(res) {
-      if (res.code === '200') {
-        console.log(res.data)
-        this.form.cover = res.data
-      }
-    },
+            if (res.code === '200') {
+                console.log(res.data)
+                this.form.cover = res.data
+            }
+        },
         save() {
             this.$refs["ruleForm"].validate((valid) => {
                 if (valid) {

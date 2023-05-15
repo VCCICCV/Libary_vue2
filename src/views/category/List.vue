@@ -8,7 +8,7 @@
     </div>
     <!-- 列表 -->
     <!-- 表格prop写驼峰 -->
-    <el-table :data="tableData" stripe row-key="id" default-expand-all>
+    <el-table :data="tableData" stripe row-key="id" default-expand-all style="height:500px; overflow-y: scroll;">
       <el-table-column prop="id" label="编号" width="80"></el-table-column>
       <el-table-column prop="name" label="名称"></el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>

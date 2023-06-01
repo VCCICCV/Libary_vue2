@@ -8,7 +8,7 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="图书名称" prop="name">
+            <el-form-item label="图书名称" prop="bookName">
                 <el-input v-model="form.bookName" placeholder="图书名称" disabled></el-input>
             </el-form-item>
             <el-form-item label="所需积分" prop="score">
@@ -20,7 +20,7 @@
                         :value="item.username"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="用户名" prop="username">
+            <el-form-item label="用户名" prop="userName">
                 <el-input v-model="form.userName" placeholder="请输入用户名" disabled></el-input>
             </el-form-item>
             <el-form-item label="用户联系方式" prop="userPhone">
@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},
-            form: { days: 1 },
+            form: {},
             books: [],
             users: [],
             rules: {
@@ -64,7 +64,8 @@ export default {
             this.books = res.data
         })
         request.get('/user/list').then(res => {
-            this.users = res.data.filter(v => v.status)
+            this.users = res.data
+            // .filter(v => v.status)
         })
     },
     methods: {
@@ -77,7 +78,7 @@ export default {
         save() {
             this.$refs["ruleForm"].validate((valid) => {
                 if (valid) {
-                    request.post("/book/save", this.form).then((res) => {
+                    request.post("/borrow/save", this.form).then((res) => {
                         if (res.code === "200") {
                             this.$notify.success("新增成功");
                             this.$refs["ruleForm"].resetFields();
@@ -93,20 +94,24 @@ export default {
         },
         selBook() {
             const book = this.books.find(v => v.bookNo === this.form.bookNo)
-            request.get('/book/' + book.id).then(res => {
-                this.$set(this.form, 'bookName', res.data.name)
-                this.form.score = res.data.score
-                this.form.nums = res.data.nums
-            })
+            // request.get('/book/' + book.id).then(res => {
+                this.form.bookName = book.name
+                this.form.score = book.score
+                // this.$set(this.form, 'bookName', res.data.name)
+                // this.form.score = res.data.score
+                // this.form.nums = res.data.nums
+            // })
         },
         selUser() {
             const user = this.users.find(v => v.username === this.form.userNo)
-            request.get('/user/' + user.id).then(res => {
-                this.$set(this.form, 'username', res.data.name)
-                this.form.userName = res.data.name
-                this.form.userPhone = res.data.phone
+            // request.get('/user/' + user.id).then(res => {
+                // this.$set(this.form, 'username', res.data.name)
+                this.form.userName = user.name
+                this.form.userPhone = user.phone
+                // this.form.userName = res.data.name
+                // this.form.userPhone = res.data.phone
                 // this.form.account = res.data.account
-            })
+            // })
         },
 
     },

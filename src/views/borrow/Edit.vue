@@ -31,9 +31,9 @@
             <el-form-item label="用户联系方式" prop="userPhone">
                 <el-input disabled v-model="form.userPhone"></el-input>
             </el-form-item>
-            <el-form-item label="用户账户积分" prop="account">
+            <!-- <el-form-item label="用户账户积分" prop="account">
                 <el-input disabled v-model="form.account"></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="借出的天数" prop="days">
                 <el-input-number v-model="form.days" :min="1" :max="30" label="借出的天数"></el-input-number>
             </el-form-item>
@@ -53,6 +53,7 @@ export default {
         return {
             admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},
             form: {},
+            users,
             books: [],
             rules: {
                 bookNo: [
@@ -91,19 +92,19 @@ export default {
         },
         selBook() {
             const book = this.books.find(v => v.bookNo === this.form.bookNo)
-            request.get('/book/' + book.id).then(res => {
+            // request.get('/book/' + book.id).then(res => {
                 this.form.bookName = res.data.name
                 this.form.score = res.data.score
                 this.form.nums = res.data.nums
-            })
+            // })
         },
         selUser() {
             const user = this.users.find(v => v.username === this.form.userNo)
-            request.get('/user/' + user.id).then(res => {
+            // request.get('/user/' + user.id).then(res => {
                 this.form.userName = res.data.name
                 this.form.userPhone = res.data.phone
                 this.form.account = res.data.account
-            })
+            // })
         }
     }
 }

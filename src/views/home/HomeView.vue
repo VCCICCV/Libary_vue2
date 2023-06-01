@@ -1,85 +1,97 @@
 <template>
   <div>
     <div>主页</div>
-    <!-- 搜索表单
-    <div style="margin-bottom: 1%">
-      <el-input style="width: 240px" placeholder="请输入" v-model="params.name"></el-input>
-      <el-input style="width: 240px;margin-left: 1%;" placeholder="请输入联系方式" v-model="params.phone"></el-input>
-      <el-button style="margin-left: 1%" type="primary" @click="load"><i class="el-icon-search"></i>搜索</el-button>
-      <el-button style="margin-left: 1%" type="warning" @click="reset"><i class="el-icon-refresh"></i>重置</el-button>
-    </div>
-    <el-table :data="tableData" stripe>
-      <el-table-column prop="name" lable="name"></el-table-column>
-      <el-table-column prop="age" lable="年龄"></el-table-column>
-      <el-table-column prop="address" lable="地址"></el-table-column>
-      <el-table-column prop="phone" lable="电话"></el-table-column>
-      <el-table-column prop="sex" lable="性别"></el-table-column>
-    </el-table> -->
-    <!-- 分页 -->
-    <!-- <div style="margin-top: 2%">
-      <el-pagination background
-      :page-size="params.pageSize"
-      :current-page="params.pageNum"
-      @current-change="handleCurrentChange"
-      layout="prev, pager, next"
-      :total="total">
-      </el-pagination>
-    </div> -->
+    <el-card>
+      <div id="line" style="width:100%;height: 400px;"></div>
+    </el-card>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import * as echarts from 'echarts';
 import  request  from '@/utils/request';
 export default {
   name: "HomeView",
   components: {
-    // HelloWorld
   },
-  data() {
-    return {
-      tableData: [],
-      total: 0,
-      params: {
-        pageNum: 1,
-        pageSize: 10,
-        name: '',
-        phone: ''
-      }
-    };
+  data(){
+    return{
+      lineBox:null,
+      timeRange:'week',
+      options:[
+        {label:'最近一周',value:'week'},
+        {label:'最近一个月',value:'month'},
+        {label:'最近两个月',value:'month2'},
+        {label:'最近三个月',value:'month3'},
+    ]
+    }
   },
-  created() {
+  // 初始化完后执行
+  mounted(){
     this.load()
   },
-  methods: {
-    load() {
-      // fetch('http://localhost:9090/user/list').then(res => res.json()).then(res => {
-      //   console.log(res)
-      //   this.tableData = res
-      // })
-      request.get('/user/page',{
-        params: this.params
-       }).then(res => {
-        if (res.code === '200') {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        }
-      })
-    },
-    reset() {
-      this.params = {
-        pageNum: 1,
-        pageSize: 10,
-        name: '',
-        phone: ''
+  methods:{
+    load(){
+      if(!this.lineBox0){
+        this.lineBox = echarts.init(document.getElementById('line'))//初始化容器
       }
-      this.load()
-    },
-    handleCurrentChange(pageNum) {
-      // 点击分页
-      this.params.pageNum = pageNum
-      this.load()
-    },
+      //从后台获取数据
+      request.get('/borrow.lineCharts/'+this,timeRange).then(res =>{
+        option.xAxis[0].data = res.data.borrow
+        option.series[1].data = res.data.return
+        this.lineBox.setOption(option)//设置容器属性值
+      })
+
+    }
   }
 };
+
+option = {
+  title: {
+    text: '借还书'
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    data: ['借书', '还书']
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: '日期',
+    boundaryGap: false,
+    data: []
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      name: '借书数量',
+      type: 'line',
+      stack: 'Total',
+      smooth:true,
+      data: []
+    },
+    {
+      name: '还数数量',
+      type: 'line',
+      stack: 'Total',
+      smooth:true,
+      data: []
+    },
+  ]
+};
+
+
 </script>

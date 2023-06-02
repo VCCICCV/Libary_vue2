@@ -1,52 +1,46 @@
 <template>
   <div>
     <div>主页</div>
+    <div>
+      <el-select class="input" v-model="timeRange" placeholder="请选择" @change="load()">
+      <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+      </el-select>
+    </div>
     <el-card>
       <div id="line" style="width:100%;height: 400px;"></div>
     </el-card>
+
+    <el-table
+      :data="tableData"
+      style="width: 100%">
+      <el-table-column
+        prop="date"
+        label="日期"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址">
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
 import * as echarts from 'echarts';
 import  request  from '@/utils/request';
-export default {
-  name: "HomeView",
-  components: {
-  },
-  data(){
-    return{
-      lineBox:null,
-      timeRange:'week',
-      options:[
-        {label:'最近一周',value:'week'},
-        {label:'最近一个月',value:'month'},
-        {label:'最近两个月',value:'month2'},
-        {label:'最近三个月',value:'month3'},
-    ]
-    }
-  },
-  // 初始化完后执行
-  mounted(){
-    this.load()
-  },
-  methods:{
-    load(){
-      if(!this.lineBox0){
-        this.lineBox = echarts.init(document.getElementById('line'))//初始化容器
-      }
-      //从后台获取数据
-      request.get('/borrow.lineCharts/'+this,timeRange).then(res =>{
-        option.xAxis[0].data = res.data.borrow
-        option.series[1].data = res.data.return
-        this.lineBox.setOption(option)//设置容器属性值
-      })
-
-    }
-  }
-};
-
-option = {
+import Cookies from 'js-cookie'
+const option = {
   title: {
     text: '借还书'
   },
@@ -54,7 +48,7 @@ option = {
     trigger: 'axis'
   },
   legend: {
-    data: ['借书', '还书']
+    data: ['借书数量', '还书数量']
   },
   grid: {
     left: '3%',
@@ -68,7 +62,7 @@ option = {
     }
   },
   xAxis: {
-    type: '日期',
+    type: 'category',
     boundaryGap: false,
     data: []
   },
@@ -84,7 +78,7 @@ option = {
       data: []
     },
     {
-      name: '还数数量',
+      name: '还书数量',
       type: 'line',
       stack: 'Total',
       smooth:true,
@@ -93,5 +87,65 @@ option = {
   ]
 };
 
+export default {
+  name: "HomeView",
+  data(){
+    return{
+      admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},
+      lineBox:null,
+      timeRange:'week',//时间范围
+      options:[
+        {label:'最近一周',value:'week'},
+        {label:'最近一个月',value:'month'},
+        {label:'最近两个月',value:'month2'},
+        {label:'最近三个月',value:'month3'},
+    ],
+    tableData: [{
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
+          }, {
+            date: '2016-05-04',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1517 弄'
+          }, {
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄'
+          }, {
+            date: '2016-05-03',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1516 弄'
+          }]
+    }
+  },
+  // 初始化完后执行
+  mounted(){
+    this.load()
+  },
+  methods:{
+    load(){
+      if(!this.lineBox){
+        this.lineBox = echarts.init(document.getElementById('line'))//初始化容器
+      }
+      //从后台获取数据
+      request.get('/borrow/lineCharts/'+ this.timeRange).then(res =>{
+        option.xAxis.data = res.data.date
+        option.series[0].data = res.data.borrow
+        option.series[1].data = res.data.retur
+        this.lineBox.setOption(option)//设置容器属性值
+      })
+
+    }
+  }
+};
+
+
+
 
 </script>
+<style>
+.input {
+  width: 300px;
+}
+</style>

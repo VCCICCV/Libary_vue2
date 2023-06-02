@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <div class="img1-content">
-                <img class="img1" src="@/assets/img/shop1.png">
+                <img class="img1" src="@/assets/img/login.png">
             </div>
             <div class="login-content">
                 <div class="content-wrapper">
@@ -50,7 +50,7 @@ body {
 
 }
 .img1{
-    width: 50%;
+    width: 100%;
 }
 .title{
     text-align: center;
